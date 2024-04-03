@@ -1,0 +1,50 @@
+#include <vector> // Include the vector library for using dynamic arrays
+using namespace std;
+
+vector<int> sum(vector<int>& arr1, vector<int>& arr2) // Change the function signature to accept vectors
+{
+    vector<int> ans; // Initialize ans as an empty vector
+    int sum = 0;
+    int carry = 0;
+    
+    int i = arr1.size() - 1;
+    int j = arr2.size() - 1;
+    
+    while(i >= 0 || j >= 0 || carry != 0) // Change the condition to consider carry
+    {
+        int val1 = (i >= 0) ? arr1[i] : 0; // Check if i is within bounds
+        int val2 = (j >= 0) ? arr2[j] : 0; // Check if j is within bounds
+        
+        sum = val1 + val2 + carry;
+        
+        carry = sum / 10; // Update carry
+        sum = sum % 10; // Update sum
+        
+        ans.push_back(sum); // Use push_back to append elements to the vector
+        i --;
+        j --;
+    }
+    
+    // Reverse the vector to get the correct order
+    reverse(ans.begin(), ans.end());
+    
+    return ans; // Return the resulting vector
+}
+
+int main()
+{
+    // Example usage
+    vector<int> arr1 = {1, 2, 3};
+    vector<int> arr2 = {4, 5, 6};
+    
+    vector<int> result = sum(arr1, arr2);
+    
+    // Print the result
+    for(int num : result)
+    {
+        cout << num << " ";
+    }
+    cout << endl;
+    
+    return 0;
+}
